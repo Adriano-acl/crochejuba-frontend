@@ -1,0 +1,1074 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Juba Crochê & Arte</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --preto: #0f0e0d;
+      --dourado: #c9b99a;
+      --dourado-escuro: #a8956e;
+      --branco: #f0ece4;
+      --branco-suave: #d9d0c1;
+      --whatsapp: #25d366;
+      --card-bg: #1a1815;
+      --overlay: rgba(15,14,13,0.85);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--preto);
+      color: var(--branco);
+      font-family: 'Raleway', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ============ NAVBAR ============ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 5%;
+      background: transparent;
+      transition: background 0.4s, padding 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(15,14,13,0.96);
+      padding: 0.8rem 5%;
+      border-bottom: 1px solid rgba(201,185,154,0.15);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+    }
+    .nav-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .nav-logo-text span:first-child {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--dourado);
+      letter-spacing: 0.06em;
+    }
+    .nav-logo-text span:last-child {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--branco-suave);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--branco-suave);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--dourado);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--dourado); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-whatsapp {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: transparent;
+      border: 1px solid var(--whatsapp);
+      color: var(--whatsapp);
+      padding: 0.45rem 1.1rem;
+      border-radius: 2px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+    }
+    .nav-whatsapp:hover { background: var(--whatsapp); color: #fff; }
+    .nav-whatsapp svg { width: 14px; height: 14px; fill: currentColor; }
+
+    /* ============ HERO ============ */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+    }
+
+    .hero-image {
+      position: absolute;
+      top: 0; right: 0;
+      width: 62%;
+      height: 100%;
+      background: url('img/foto-juba.jpg') center/cover no-repeat;
+      clip-path: polygon(18% 0, 100% 0, 100% 100%, 0% 100%);
+      z-index: 1;
+    }
+    /* Placeholder enquanto não tem foto */
+    .hero-image.placeholder {
+      background: linear-gradient(135deg, #2a2318 0%, #3d3020 40%, #1a1610 100%);
+    }
+    .hero-image.placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(201,185,154,0.04) 8px, rgba(201,185,154,0.04) 9px),
+        repeating-linear-gradient(-45deg, transparent, transparent 8px, rgba(201,185,154,0.03) 8px, rgba(201,185,154,0.03) 9px);
+    }
+    .hero-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(15,14,13,0.95) 0%, rgba(15,14,13,0.5) 40%, rgba(15,14,13,0.1) 100%);
+    }
+
+    .hero-text {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      left: 6%;
+      transform: translateY(-50%);
+      max-width: 520px;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--dourado);
+      border-left: 2px solid var(--dourado);
+      padding-left: 10px;
+      margin-bottom: 1.4rem;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--branco);
+      margin-bottom: 0.4rem;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--dourado);
+    }
+    .hero-subtitle {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      font-weight: 300;
+      color: var(--branco-suave);
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+      max-width: 400px;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--dourado);
+      color: var(--preto);
+      padding: 0.85rem 2rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--dourado-escuro); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--branco);
+      padding: 0.85rem 2rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid rgba(240,236,228,0.35);
+      cursor: pointer;
+      transition: border-color 0.3s, color 0.3s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--dourado); color: var(--dourado); transform: translateY(-2px); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 6%;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(240,236,228,0.4);
+    }
+    .hero-scroll::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: rgba(240,236,228,0.25);
+    }
+
+    /* ============ STRIP CATEGORIAS ============ */
+    .strip {
+      background: var(--dourado);
+      overflow: hidden;
+      padding: 0;
+    }
+    .strip-inner {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      animation: marquee 20s linear infinite;
+      width: max-content;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .strip-inner span {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.9rem 2rem;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--preto);
+    }
+    .strip-inner span::after {
+      content: '◆';
+      font-size: 0.4rem;
+      color: rgba(15,14,13,0.4);
+    }
+
+    /* ============ SEÇÃO CATÁLOGO ============ */
+    section { padding: 6rem 5%; }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--dourado);
+      border-left: 2px solid var(--dourado);
+      padding-left: 10px;
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      color: var(--branco);
+      line-height: 1.2;
+    }
+    .section-title em {
+      font-style: italic;
+      color: var(--dourado);
+    }
+    .section-link {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dourado);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.3s;
+    }
+    .section-link:hover { gap: 10px; }
+    .section-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    /* Grade de produtos */
+    .produtos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5px;
+    }
+    .produto-card {
+      background: var(--card-bg);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      group: true;
+    }
+    .produto-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s;
+      background: #252220;
+    }
+    /* Placeholder imagem */
+    .produto-img-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(160deg, #252220 0%, #1e1b18 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.6s;
+    }
+    .produto-img-placeholder svg {
+      width: 48px;
+      height: 48px;
+      stroke: rgba(201,185,154,0.2);
+      fill: none;
+      stroke-width: 1;
+    }
+    .produto-card:hover .produto-img,
+    .produto-card:hover .produto-img-placeholder { transform: scale(1.04); }
+    .produto-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15,14,13,0.92) 0%, rgba(15,14,13,0.2) 50%, transparent 100%);
+      transition: opacity 0.3s;
+    }
+    .produto-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.5rem;
+      transform: translateY(8px);
+      transition: transform 0.3s;
+    }
+    .produto-card:hover .produto-info { transform: translateY(0); }
+    .produto-categoria {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dourado);
+      margin-bottom: 0.3rem;
+    }
+    .produto-nome {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--branco);
+      margin-bottom: 0.4rem;
+    }
+    .produto-preco {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--dourado);
+    }
+    .produto-cta {
+      display: inline-block;
+      margin-top: 0.8rem;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--preto);
+      background: var(--dourado);
+      padding: 0.45rem 1rem;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s 0.05s, transform 0.3s 0.05s;
+    }
+    .produto-card:hover .produto-cta { opacity: 1; transform: translateY(0); }
+
+    /* Loading state */
+    .loading-produtos {
+      grid-column: 1/-1;
+      padding: 4rem;
+      text-align: center;
+      color: var(--branco-suave);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+    }
+    .loading-dots { display: inline-flex; gap: 6px; }
+    .loading-dots span {
+      width: 6px; height: 6px;
+      background: var(--dourado);
+      border-radius: 50%;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes pulse { 0%,100%{opacity:0.3;transform:scale(0.8)} 50%{opacity:1;transform:scale(1)} }
+
+    /* ============ SEÇÃO SOBRE ============ */
+    .sobre {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: stretch;
+      padding: 0;
+    }
+    .sobre-image-wrap {
+      position: relative;
+      overflow: hidden;
+      min-height: 600px;
+    }
+    .sobre-image-wrap img,
+    .sobre-img-placeholder {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .sobre-img-placeholder {
+      background: linear-gradient(135deg, #1e1b18, #2a2318);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .sobre-img-placeholder svg {
+      width: 80px;
+      height: 80px;
+      stroke: rgba(201,185,154,0.15);
+      fill: none;
+      stroke-width: 1;
+    }
+    .sobre-content {
+      background: var(--card-bg);
+      padding: 6rem 5%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .sobre-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+      font-style: italic;
+      color: var(--dourado);
+      line-height: 1.5;
+      margin-bottom: 2rem;
+      padding-left: 1.5rem;
+      border-left: 2px solid var(--dourado);
+    }
+    .sobre-texto {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--branco-suave);
+      line-height: 1.85;
+      margin-bottom: 2.5rem;
+    }
+    .sobre-stats {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .stat-item { display: flex; flex-direction: column; gap: 2px; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dourado);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(201,185,154,0.5);
+    }
+
+    /* ============ SOB MEDIDA ============ */
+    .sob-medida {
+      background: var(--dourado);
+      padding: 5rem 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .sob-medida-text .label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(15,14,13,0.5);
+      margin-bottom: 0.8rem;
+    }
+    .sob-medida-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+      font-weight: 700;
+      color: var(--preto);
+      line-height: 1.2;
+      margin-bottom: 0.8rem;
+    }
+    .sob-medida-text p {
+      font-size: 0.88rem;
+      color: rgba(15,14,13,0.65);
+      max-width: 400px;
+      line-height: 1.7;
+    }
+    .btn-dark {
+      background: var(--preto);
+      color: var(--dourado);
+      padding: 1rem 2.2rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-dark:hover { background: #1a1815; transform: translateY(-2px); }
+
+    /* ============ FOOTER ============ */
+    footer {
+      background: #080807;
+      border-top: 1px solid rgba(201,185,154,0.1);
+      padding: 3.5rem 5% 2rem;
+    }
+    .footer-main {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(201,185,154,0.08);
+    }
+    .footer-brand .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--dourado);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.3rem;
+    }
+    .footer-brand .brand-sub {
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(201,185,154,0.4);
+      margin-bottom: 1.2rem;
+    }
+    .footer-brand p {
+      font-size: 0.82rem;
+      color: rgba(240,236,228,0.4);
+      line-height: 1.7;
+      max-width: 240px;
+    }
+    .footer-col h4 {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dourado);
+      margin-bottom: 1.2rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .footer-col ul a {
+      font-size: 0.82rem;
+      color: rgba(240,236,228,0.45);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-col ul a:hover { color: var(--dourado); }
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .social-link {
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(201,185,154,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .social-link:hover { border-color: var(--dourado); background: rgba(201,185,154,0.08); }
+    .social-link svg { width: 16px; height: 16px; fill: var(--dourado); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-bottom p {
+      font-size: 0.72rem;
+      color: rgba(240,236,228,0.22);
+      letter-spacing: 0.05em;
+    }
+
+    /* ============ MENU HAMBURGUER ============ */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--dourado);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-hamburger.ativo span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.ativo span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.ativo span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15,14,13,0.98);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .nav-mobile.aberto { display: flex; }
+    .nav-mobile a {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--branco-suave);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.3s;
+    }
+    .nav-mobile a:hover { color: var(--dourado); }
+
+    /* ============ RESPONSIVO ============ */
+    @media (max-width: 768px) {
+      /* Navbar mobile */
+      .nav-links { display: none; }
+      .nav-whatsapp span { display: none; } /* esconde texto, mantém ícone */
+      .nav-hamburger { display: flex; }
+
+      /* Hero mobile — imagem vira fundo completo, sem clip-path */
+      .hero-image {
+        width: 100%;
+        clip-path: none;
+        right: 0;
+      }
+      /* Overlay mais escuro no mobile pra texto ficar legível */
+      .hero-image::after {
+        background: linear-gradient(
+          to bottom,
+          rgba(15,14,13,0.5) 0%,
+          rgba(15,14,13,0.65) 100%
+        );
+      }
+      /* Texto centralizado no mobile */
+      .hero-text {
+        left: 5%;
+        right: 5%;
+        max-width: 100%;
+        text-align: center;
+      }
+      .hero-tag { border-left: none; padding-left: 0; }
+      .hero-buttons { justify-content: center; }
+      .hero-scroll { display: none; }
+
+      /* Seção sobre empilha */
+      .sobre { grid-template-columns: 1fr; }
+      .sobre-image-wrap { min-height: 300px; }
+
+      /* Footer empilha */
+      .footer-main { grid-template-columns: 1fr; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">
+      <!-- Substitua por: <img src="img/logo-juba-transparente.png" alt="Juba Crochê"> -->
+      <div style="width:46px;height:46px;border-radius:50%;border:1.5px solid var(--dourado);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <span style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--dourado);">J</span>
+      </div>
+      <div class="nav-logo-text">
+        <span>JUBA</span>
+        <span>Crochê &amp; Arte</span>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#inicio">Início</a></li>
+      <li><a href="#catalogo">Catálogo</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#sob-medida">Sob medida</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+
+    <a href="https://wa.me/5531999999999?text=Olá! Vi seu trabalho e quero encomendar uma peça." 
+       class="nav-whatsapp" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.119.554 4.107 1.522 5.832L.072 23.928l6.265-1.424A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.81 9.81 0 01-5.003-1.366l-.359-.213-3.72.846.878-3.608-.234-.371A9.795 9.795 0 012.182 12C2.182 6.573 6.573 2.182 12 2.182S21.818 6.573 21.818 12 17.427 21.818 12 21.818z"/>
+      </svg>
+      <span>WhatsApp</span>
+    </a>
+
+    <button class="nav-hamburger" id="hamburger" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MENU MOBILE -->
+  <div class="nav-mobile" id="navMobile">
+    <a href="#inicio" class="nav-mobile-link">Início</a>
+    <a href="#catalogo" class="nav-mobile-link">Catálogo</a>
+    <a href="#sobre" class="nav-mobile-link">Sobre</a>
+    <a href="#sob-medida" class="nav-mobile-link">Sob medida</a>
+    <a href="#contato" class="nav-mobile-link">Contato</a>
+    <a href="https://wa.me/5531999999999" target="_blank" style="color:var(--whatsapp);font-size:1rem;font-family:'Raleway',sans-serif;letter-spacing:0.1em;margin-top:1rem;">WhatsApp</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-image placeholder"></div>
+    <!-- Quando tiver a foto: <div class="hero-image" style="background-image: url('img/foto-juba.jpg')"></div> -->
+
+    <div class="hero-text">
+      <div class="hero-tag">Feito à mão, com amor</div>
+      <h1 class="hero-title">
+        Arte que<br>
+        você <em>veste</em>
+      </h1>
+      <p class="hero-subtitle">
+        Peças únicas de crochê artesanal — roupas de banho, vestidos, bolsas, chapéus e acessórios sob medida para o seu estilo.
+      </p>
+      <div class="hero-buttons">
+        <a href="#catalogo" class="btn-primary">Ver catálogo</a>
+        <a href="https://wa.me/5531999999999?text=Quero encomendar uma peça sob medida!" 
+           class="btn-outline" target="_blank">Pedir sob medida</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll">Deslize para explorar</div>
+  </section>
+
+  <!-- STRIP CATEGORIAS -->
+  <div class="strip" aria-hidden="true">
+    <div class="strip-inner" id="stripInner">
+      <span>Roupas de banho</span>
+      <span>Vestidos</span>
+      <span>Bolsas</span>
+      <span>Chapéus</span>
+      <span>Sob medida</span>
+      <span>Acessórios</span>
+      <span>Roupas de banho</span>
+      <span>Vestidos</span>
+      <span>Bolsas</span>
+      <span>Chapéus</span>
+      <span>Sob medida</span>
+      <span>Acessórios</span>
+    </div>
+  </div>
+
+  <!-- CATÁLOGO -->
+  <section id="catalogo">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Nosso trabalho</div>
+        <h2 class="section-title">Peças em <em>destaque</em></h2>
+      </div>
+      <a href="catalogo.html" class="section-link">
+        Ver tudo
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+
+    <div class="produtos-grid" id="produtosGrid">
+      <div class="loading-produtos">
+        <div class="loading-dots"><span></span><span></span><span></span></div>
+        <p style="margin-top:1rem;">Carregando peças...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="sobre" id="sobre">
+    <div class="sobre-image-wrap">
+      <!-- <img src="img/juba-trabalhando.jpg" alt="Juba trabalhando"> -->
+      <div class="sobre-img-placeholder">
+        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="28" r="14" stroke-width="1.5"/>
+          <path d="M12 72c0-15.464 12.536-28 28-28s28 12.536 28 28" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="sobre-content">
+      <div class="section-label">Quem somos</div>
+      <blockquote class="sobre-quote">
+        "Cada ponto é uma intenção. Cada peça carrega uma história."
+      </blockquote>
+      <p class="sobre-texto">
+        O Juba Crochê & Arte nasceu da paixão por criar peças únicas, feitas com dedicação e técnica artesanal. 
+        Cada encomenda é tratada de forma especial — do primeiro contato até a entrega, pensamos juntos no que vai combinar melhor com você.
+        <br><br>
+        Trabalhamos com medidas personalizadas, escolha de cores e modelos exclusivos. Porque moda de verdade é aquela que foi feita pra você.
+      </p>
+      <div class="sobre-stats">
+        <div class="stat-item">
+          <span class="stat-num">200+</span>
+          <span class="stat-label">Peças criadas</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Sob medida</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">★ 5.0</span>
+          <span class="stat-label">Avaliações</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOB MEDIDA CTA -->
+  <div class="sob-medida" id="sob-medida">
+    <div class="sob-medida-text">
+      <div class="label">Exclusividade para você</div>
+      <h2>Sua peça, do seu jeito</h2>
+      <p>Medidas, cores e modelos personalizados. Entre em contato e vamos criar juntos algo único.</p>
+    </div>
+    <a href="https://wa.me/5531999999999?text=Olá! Quero encomendar uma peça sob medida."
+       class="btn-dark" target="_blank" rel="noopener">
+      Fazer encomenda
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer id="contato">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <div class="brand-name">JUBA</div>
+        <div class="brand-sub">Crochê &amp; Arte</div>
+        <p>Peças artesanais únicas, feitas à mão com amor e dedicação para quem aprecia o trabalho manual.</p>
+        <div class="footer-social">
+          <a href="https://instagram.com/juba.croche1" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </a>
+          <a href="https://wa.me/5531999999999" class="social-link" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.119.554 4.107 1.522 5.832L.072 23.928l6.265-1.424A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.81 9.81 0 01-5.003-1.366l-.359-.213-3.72.846.878-3.608-.234-.371A9.795 9.795 0 012.182 12C2.182 6.573 6.573 2.182 12 2.182S21.818 6.573 21.818 12 17.427 21.818 12 21.818z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#catalogo">Catálogo</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#sob-medida">Sob medida</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="https://instagram.com/juba.croche1" target="_blank">@juba.croche1</a></li>
+          <li><a href="https://wa.me/5531999999999" target="_blank">WhatsApp</a></li>
+          <li><a href="mailto:juba@email.com">juba@email.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Juba Crochê &amp; Arte. Todos os direitos reservados.</p>
+      <p>Feito com ♥ por Adriano</p>
+    </div>
+  </footer>
+
+  <script>
+    // ======= NAVBAR scroll =======
+    const navbar = document.getElementById('navbar')
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60)
+    })
+
+    // ======= MENU HAMBURGUER =======
+    const hamburger = document.getElementById("hamburger")
+    const navMobile = document.getElementById("navMobile")
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("ativo")
+      navMobile.classList.toggle("aberto")
+      document.body.style.overflow = navMobile.classList.contains("aberto") ? "hidden" : ""
+    })
+    document.querySelectorAll(".nav-mobile-link").forEach(link => {
+      link.addEventListener("click", () => {
+        hamburger.classList.remove("ativo")
+        navMobile.classList.remove("aberto")
+        document.body.style.overflow = ""
+      })
+    })
+
+    // ======= CARREGAR PRODUTOS DA API =======
+    const API_URL = 'http://localhost:3000'
+
+    async function carregarProdutos() {
+      const grid = document.getElementById('produtosGrid')
+
+      // Primeiro faz login para pegar token
+      // Em produção o token ficaria salvo / seria público para leitura
+      // Por enquanto simula com token salvo no sessionStorage
+      let token = sessionStorage.getItem('juba_token')
+
+      if (!token) {
+        try {
+          const res = await fetch(`${API_URL}/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: 'juba@email.com', senha: '123456' })
+          })
+          if (res.ok) {
+            const data = await res.json()
+            token = data.token
+            sessionStorage.setItem('juba_token', token)
+          }
+        } catch(e) {
+          // Se não conseguiu conectar, mostra produtos de exemplo
+        }
+      }
+
+      if (!token) {
+        renderProdutosExemplo(grid)
+        return
+      }
+
+      try {
+        const res = await fetch(`${API_URL}/produtos`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        })
+        if (!res.ok) throw new Error('Falha')
+        const produtos = await res.json()
+        if (produtos.length === 0) {
+          renderProdutosExemplo(grid)
+        } else {
+          renderProdutos(grid, produtos)
+        }
+      } catch(e) {
+        renderProdutosExemplo(grid)
+      }
+    }
+
+    function renderProdutos(grid, produtos) {
+      grid.innerHTML = produtos.map(p => cardProduto(p)).join('')
+    }
+
+    function renderProdutosExemplo(grid) {
+      // Dados de exemplo enquanto API não está conectada
+      const exemplos = [
+        { id:1, nome: 'Biquíni de crochê', descricao: 'Roupas de banho', preco: 180.00 },
+        { id:2, nome: 'Bolsa de crochê', descricao: 'Bolsas', preco: 120.00 },
+        { id:3, nome: 'Tapete de crochê', descricao: 'Casa & Decoração', preco: 89.90 },
+        { id:4, nome: 'Vestido de crochê', descricao: 'Vestidos', preco: 260.00 },
+        { id:5, nome: 'Chapéu de crochê', descricao: 'Chapéus', preco: 75.00 },
+        { id:6, nome: 'Top de crochê', descricao: 'Roupas de banho', preco: 95.00 },
+      ]
+      grid.innerHTML = exemplos.map(p => cardProduto(p)).join('')
+    }
+
+    function cardProduto(p) {
+      const preco = parseFloat(p.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+      return `
+        <div class="produto-card">
+          <div class="produto-img-placeholder">
+            <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+              <rect x="15" y="15" width="50" height="50" rx="4" stroke-width="1"/>
+              <circle cx="30" cy="30" r="8" stroke-width="1"/>
+              <polyline points="15,55 30,38 42,48 55,30 65,50" stroke-width="1.5" fill="none"/>
+            </svg>
+          </div>
+          <div class="produto-card-overlay"></div>
+          <div class="produto-info">
+            <div class="produto-categoria">${p.descricao || 'Artesanal'}</div>
+            <div class="produto-nome">${p.nome}</div>
+            <div class="produto-preco">${preco}</div>
+            <a href="https://wa.me/5531999999999?text=Tenho interesse na peça: ${encodeURIComponent(p.nome)}" 
+               class="produto-cta" target="_blank">Encomendar</a>
+          </div>
+        </div>
+      `
+    }
+
+    // Inicia carregamento
+    carregarProdutos()
+  </script>
+</body>
+</html>
