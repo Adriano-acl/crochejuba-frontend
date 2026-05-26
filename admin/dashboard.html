@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Juba Crochê</title>
+
+  <style>
+
+    body{
+      background:#0f0e0d;
+      color:#f0ece4;
+      font-family:Arial;
+      padding:40px;
+    }
+
+    h1{
+      color:#c9b99a;
+    }
+
+    .card{
+      background:#1a1815;
+      padding:20px;
+      margin-top:20px;
+      border-left:3px solid #c9b99a;
+    }
+
+  </style>
+
+</head>
+<body>
+
+<h1>Painel Administrativo</h1>
+
+<div class="card">
+  Login realizado com sucesso.
+</div>
+
+<script>
+
+const token = localStorage.getItem('token')
+
+if(!token){
+
+    alert('Faça login primeiro')
+
+    window.location.href = 'login.html'
+
+}
+
+</script>
+
+</body>
+</html>
