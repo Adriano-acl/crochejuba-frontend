@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clientes — Juba Crochê</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <span class="logo-nome">JUBA</span>
+        <span class="logo-sub">Crochê & Arte</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item">
+          <span class="nav-icon">⊞</span> Dashboard
+        </a>
+        <a href="produtos.html" class="nav-item">
+          <span class="nav-icon">◈</span> Produtos
+        </a>
+        <a href="clientes.html" class="nav-item ativo">
+          <span class="nav-icon">◎</span> Clientes
+        </a>
+        <a href="vendas.html" class="nav-item">
+          <span class="nav-icon">◉</span> Vendas
+        </a>
+        <a href="faturamento.html" class="nav-item">
+          <span class="nav-icon">▦</span> Faturamento
+        </a>
+        <a href="os.html" class="nav-item">
+          <span class="nav-icon">⊟</span> OS
+        </a>
+      </nav>
+      <a href="login.html" class="sidebar-sair">
+        <span class="nav-icon">⇥</span> Sair
+      </a>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="conteudo">
+
+      <!-- CABEÇALHO -->
+      <div class="page-header">
+        <div>
+          <h1 class="page-saudacao">Clientes</h1>
+          <p class="page-data" id="total-clientes">Carregando...</p>
+        </div>
+        <button class="btn-nova-venda" id="btn-novo-cliente">+ Novo Cliente</button>
+      </div>
+
+      <!-- BUSCA -->
+      <div class="busca-box">
+        <input class="form-input" id="campo-busca" type="text" placeholder="Buscar por nome ou telefone...">
+        <button class="btn-salvar" id="btn-buscar">Buscar</button>
+        <button class="btn-cancelar" id="btn-limpar-busca">Limpar</button>
+      </div>
+
+      <!-- FORMULÁRIO (oculto por padrão) -->
+      <div class="form-box" id="form-box" style="display:none">
+        <div class="form-box-header">
+          <h2 id="form-titulo">Novo Cliente</h2>
+          <button class="btn-fechar" id="btn-fechar">✕</button>
+        </div>
+
+        <p class="form-secao">Dados principais</p>
+        <div class="form-grid">
+          <div class="form-grupo">
+            <label class="form-label">Nome *</label>
+            <input class="form-input" id="campo-nome" type="text" placeholder="Nome completo">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">WhatsApp / Telefone *</label>
+            <input class="form-input" id="campo-telefone" type="text" placeholder="(31) 99999-9999">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Status</label>
+            <select class="form-input" id="campo-status">
+              <option value="lead">Lead</option>
+              <option value="cliente">Cliente</option>
+              <option value="inativo">Inativo</option>
+            </select>
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Instagram</label>
+            <input class="form-input" id="campo-instagram" type="text" placeholder="@usuario">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Email</label>
+            <input class="form-input" id="campo-email" type="email" placeholder="email@exemplo.com">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">CPF</label>
+            <input class="form-input" id="campo-cpf" type="text" placeholder="000.000.000-00">
+          </div>
+        </div>
+
+        <p class="form-secao">Endereço <span class="form-secao-obs">(para entregas)</span></p>
+        <div class="form-grid">
+          <div class="form-grupo">
+            <label class="form-label">CEP</label>
+            <input class="form-input" id="campo-cep" type="text" placeholder="00000-000">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Endereço</label>
+            <input class="form-input" id="campo-endereco" type="text" placeholder="Rua, Avenida...">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Número</label>
+            <input class="form-input" id="campo-numero" type="text" placeholder="123">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Complemento</label>
+            <input class="form-input" id="campo-complemento" type="text" placeholder="Apto, bloco...">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Cidade</label>
+            <input class="form-input" id="campo-cidade" type="text" placeholder="Belo Horizonte">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Estado</label>
+            <input class="form-input" id="campo-estado" type="text" placeholder="MG">
+          </div>
+        </div>
+
+        <p class="form-secao">Interesse e origem</p>
+        <div class="form-grid">
+          <div class="form-grupo">
+            <label class="form-label">Como chegou</label>
+            <select class="form-input" id="campo-como-chegou">
+              <option value="">Selecionar...</option>
+              <option value="whatsapp">WhatsApp</option>
+              <option value="instagram">Instagram</option>
+              <option value="indicacao">Indicação</option>
+              <option value="feira">Feira</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Interesse</label>
+            <select class="form-input" id="campo-interesse">
+              <option value="">Selecionar...</option>
+              <option value="biquini">Biquíni / roupa de banho</option>
+              <option value="vestido">Vestido</option>
+              <option value="bolsa">Bolsa</option>
+              <option value="chapeu">Chapéu</option>
+              <option value="acessorio">Acessório</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+          <div class="form-grupo form-grupo-largo">
+            <label class="form-label">Observações</label>
+            <input class="form-input" id="campo-observacao" type="text" placeholder="Medidas, cor preferida, prazo combinado...">
+          </div>
+        </div>
+
+        <div class="form-rodape">
+          <button class="btn-cancelar" id="btn-cancelar">Cancelar</button>
+          <button class="btn-salvar" id="btn-salvar">Salvar cliente</button>
+        </div>
+      </div>
+
+      <!-- TABELA DE CLIENTES -->
+      <div class="tabela-box">
+        <div class="tabela-header">
+          <h2>Todos os clientes</h2>
+        </div>
+        <table class="tabela">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Telefone</th>
+              <th>Instagram</th>
+              <th>Interesse</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-clientes">
+            <tr><td colspan="6" class="tabela-loading">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- PAINEL DE DETALHES (oculto por padrão) -->
+      <div class="painel-detalhes" id="painel-detalhes" style="display:none"></div>
+
+    </main>
+  </div>
+
+  <script src="clientes.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produtos — Juba Crochê</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <span class="logo-nome">JUBA</span>
+        <span class="logo-sub">Crochê & Arte</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item">
+          <span class="nav-icon">⊞</span> Dashboard
+        </a>
+        <a href="produtos.html" class="nav-item ativo">
+          <span class="nav-icon">◈</span> Produtos
+        </a>
+        <a href="clientes.html" class="nav-item">
+          <span class="nav-icon">◎</span> Clientes
+        </a>
+        <a href="vendas.html" class="nav-item">
+          <span class="nav-icon">◉</span> Vendas
+        </a>
+        <a href="faturamento.html" class="nav-item">
+          <span class="nav-icon">▦</span> Faturamento
+        </a>
+        <a href="os.html" class="nav-item">
+          <span class="nav-icon">⊟</span> OS
+        </a>
+      </nav>
+
+      <a href="login.html" class="sidebar-sair">
+        <span class="nav-icon">⇥</span> Sair
+      </a>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="conteudo">
+
+      <!-- CABEÇALHO -->
+      <div class="page-header">
+        <div>
+          <h1 class="page-saudacao">Produtos</h1>
+          <p class="page-data" id="total-produtos">Carregando...</p>
+        </div>
+        <button class="btn-nova-venda" id="btn-novo-produto">+ Novo Produto</button>
+      </div>
+
+      <!-- FORMULÁRIO (oculto por padrão) -->
+      <div class="form-box" id="form-box" style="display:none">
+        <div class="form-box-header">
+          <h2 id="form-titulo">Novo Produto</h2>
+          <button class="btn-fechar" id="btn-fechar">✕</button>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-grupo">
+            <label class="form-label">Nome *</label>
+            <input class="form-input" id="campo-nome" type="text" placeholder="Ex: Bolsa de crochê bege">
+          </div>
+
+          <div class="form-grupo">
+            <label class="form-label">Preço (R$) *</label>
+            <input class="form-input" id="campo-preco" type="number" step="0.01" min="0" placeholder="0,00">
+          </div>
+
+          <div class="form-grupo">
+            <label class="form-label">Quantidade em estoque *</label>
+            <input class="form-input" id="campo-quantidade" type="number" min="0" placeholder="0">
+          </div>
+
+          <div class="form-grupo form-grupo-largo">
+            <label class="form-label">Descrição</label>
+            <input class="form-input" id="campo-descricao" type="text" placeholder="Detalhes da peça, material, tamanho...">
+          </div>
+        </div>
+
+        <div class="form-rodape">
+          <button class="btn-cancelar" id="btn-cancelar">Cancelar</button>
+          <button class="btn-salvar" id="btn-salvar">Salvar produto</button>
+        </div>
+      </div>
+
+      <!-- TABELA DE PRODUTOS -->
+      <div class="tabela-box">
+        <div class="tabela-header">
+          <h2>Todos os produtos</h2>
+        </div>
+        <table class="tabela">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Descrição</th>
+              <th>Preço</th>
+              <th>Estoque</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-produtos">
+            <tr><td colspan="5" class="tabela-loading">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ALERTA ESTOQUE BAIXO -->
+      <div class="alerta-box" id="alerta-estoque" style="display:none">
+        <span class="alerta-icone">⚠</span>
+        <span id="alerta-texto"></span>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="produtos.js"></script>
+
+</body>
+</html>

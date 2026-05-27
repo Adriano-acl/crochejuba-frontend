@@ -3,52 +3,123 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Juba Crochê</title>
-
-  <style>
-
-    body{
-      background:#0f0e0d;
-      color:#f0ece4;
-      font-family:Arial;
-      padding:40px;
-    }
-
-    h1{
-      color:#c9b99a;
-    }
-
-    .card{
-      background:#1a1815;
-      padding:20px;
-      margin-top:20px;
-      border-left:3px solid #c9b99a;
-    }
-
-  </style>
-
+  <title>Dashboard — Juba Crochê</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
 
-<h1>Painel Administrativo</h1>
+  <!-- ESTRUTURA PRINCIPAL: sidebar + conteúdo -->
+  <div class="layout">
 
-<div class="card">
-  Login realizado com sucesso.
-</div>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
 
-<script>
+      <div class="sidebar-logo">
+        <span class="logo-nome">JUBA</span>
+        <span class="logo-sub">Crochê & Arte</span>
+      </div>
 
-const token = localStorage.getItem('token')
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item ativo">
+          <span class="nav-icon">⊞</span> Dashboard
+        </a>
+        <a href="produtos.html" class="nav-item">
+          <span class="nav-icon">◈</span> Produtos
+        </a>
+        <a href="clientes.html" class="nav-item">
+          <span class="nav-icon">◎</span> Clientes
+        </a>
+        <a href="vendas.html" class="nav-item">
+          <span class="nav-icon">◉</span> Vendas
+        </a>
+        <a href="faturamento.html" class="nav-item">
+          <span class="nav-icon">▦</span> Faturamento
+        </a>
+        <a href="os.html" class="nav-item">
+          <span class="nav-icon">⊟</span> OS
+        </a>
+      </nav>
 
-if(!token){
+      <a href="login.html" class="sidebar-sair">
+        <span class="nav-icon">⇥</span> Sair
+      </a>
 
-    alert('Faça login primeiro')
+    </aside>
 
-    window.location.href = 'login.html'
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="conteudo">
 
-}
+      <!-- CABEÇALHO DA PÁGINA -->
+      <div class="page-header">
+        <div>
+          <h1 class="page-saudacao">Bom dia, Juba 👋</h1>
+          <p class="page-data" id="data-hoje"></p>
+        </div>
+        <button class="btn-nova-venda">+ Nova venda</button>
+      </div>
 
-</script>
+      <!-- CARDS DE RESUMO -->
+      <div class="cards-grid">
+
+        <div class="card">
+          <p class="card-label">Faturamento do mês</p>
+          <p class="card-valor" id="faturamento">R$ —</p>
+          <p class="card-detalhe positivo">carregando...</p>
+        </div>
+
+        <div class="card">
+          <p class="card-label">Vendas no mês</p>
+          <p class="card-valor" id="vendas-mes">—</p>
+          <p class="card-detalhe">peças vendidas</p>
+        </div>
+
+        <div class="card">
+          <p class="card-label">Clientes cadastrados</p>
+          <p class="card-valor" id="total-clientes">—</p>
+          <p class="card-detalhe" id="clientes-novos">carregando...</p>
+        </div>
+
+        <div class="card">
+          <p class="card-label">Estoque baixo</p>
+          <p class="card-valor alerta" id="estoque-baixo">—</p>
+          <p class="card-detalhe">produtos com qtd ≤ 1</p>
+        </div>
+
+      </div>
+
+      <!-- TABELA ÚLTIMAS VENDAS -->
+      <div class="tabela-box">
+        <div class="tabela-header">
+          <h2>Últimas vendas</h2>
+          <a href="vendas.html" class="link-ver-todas">Ver todas</a>
+        </div>
+        <table class="tabela">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Produto</th>
+              <th>Data</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-vendas">
+            <tr><td colspan="4" class="tabela-loading">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ALERTA ESTOQUE BAIXO -->
+      <div class="alerta-box" id="alerta-estoque" style="display:none">
+        <span class="alerta-icone">⚠</span>
+        <span id="alerta-texto"></span>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="dashboard.js"></script>
 
 </body>
 </html>
