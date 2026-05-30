@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ordem de Serviço — Juba Crochê</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f4f0; --card: #ffffff; --texto: #1a1917;
+      --suave: #6b6760; --dourado: #c9b99a; --dourado-escuro: #a8956e;
+      --borda: #e8e4dc; --positivo: #2d8a4e;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); font-family: 'Inter', sans-serif; font-size: 14px; color: var(--texto); padding: 2rem; }
+    .barra-acoes { display: flex; gap: 1rem; justify-content: flex-end; margin-bottom: 1.5rem; }
+    .btn-acao { display: flex; align-items: center; gap: 8px; padding: 0.65rem 1.4rem; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; transition: opacity 0.2s; }
+    .btn-acao:hover { opacity: 0.8; }
+    .btn-imprimir { background: #1a1917; color: #fff; }
+    .btn-pdf { background: var(--dourado); color: #1a1917; }
+    .btn-voltar { background: none; border: 1px solid var(--borda); color: var(--suave); }
+    .os-container { background: var(--card); max-width: 860px; margin: 0 auto; border-radius: 16px; border: 1px solid var(--borda); overflow: hidden; }
+    .os-header { display: flex; align-items: center; justify-content: space-between; padding: 2rem 2.5rem; border-bottom: 2px solid var(--borda); background: #faf9f7; }
+    .os-empresa-nome { font-size: 1.4rem; font-weight: 700; color: var(--texto); letter-spacing: 0.05em; }
+    .os-empresa-sub { font-size: 0.78rem; color: var(--suave); margin-top: 2px; }
+    .os-empresa-slogan { font-size: 0.72rem; color: var(--dourado-escuro); font-style: italic; margin-top: 4px; }
+    .os-numero-box { text-align: right; }
+    .os-numero-label { font-size: 0.7rem; font-weight: 600; color: var(--suave); text-transform: uppercase; letter-spacing: 0.08em; }
+    .os-numero { font-size: 2rem; font-weight: 700; color: var(--texto); line-height: 1.1; }
+    .os-data-emissao { font-size: 0.75rem; color: var(--suave); margin-top: 4px; }
+    .os-body { padding: 2rem 2.5rem; display: flex; flex-direction: column; gap: 1.8rem; }
+    .os-secao { border: 1px solid var(--borda); border-radius: 10px; overflow: hidden; }
+    .os-secao-titulo { background: #faf9f7; padding: 0.6rem 1.2rem; font-size: 0.72rem; font-weight: 700; color: var(--suave); text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid var(--borda); }
+    .os-secao-corpo { padding: 1.2rem; }
+    .os-dados-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .os-campo { display: flex; flex-direction: column; gap: 3px; }
+    .os-campo-label { font-size: 0.7rem; font-weight: 600; color: var(--suave); text-transform: uppercase; letter-spacing: 0.05em; }
+    .os-campo-valor { font-size: 0.9rem; color: var(--texto); font-weight: 500; }
+    .os-campo-vazio { color: #b0aca4; font-style: italic; font-weight: 400; }
+    .os-tabela { width: 100%; border-collapse: collapse; }
+    .os-tabela thead th { text-align: left; padding: 0.6rem 1rem; font-size: 0.7rem; font-weight: 700; color: var(--suave); text-transform: uppercase; letter-spacing: 0.06em; background: #faf9f7; border-bottom: 1px solid var(--borda); }
+    .os-tabela tbody td { padding: 0.9rem 1rem; font-size: 0.88rem; border-bottom: 1px solid var(--borda); }
+    .os-tabela tbody tr:last-child td { border-bottom: none; }
+    .td-right { text-align: right; font-weight: 600; }
+    .os-resumo { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; padding: 1.2rem; }
+    .os-resumo-linha { display: flex; gap: 2rem; justify-content: flex-end; align-items: center; width: 100%; max-width: 320px; }
+    .os-resumo-label { font-size: 0.82rem; color: var(--suave); text-align: right; flex: 1; }
+    .os-resumo-valor { font-size: 0.88rem; font-weight: 600; color: var(--texto); min-width: 100px; text-align: right; }
+    .os-resumo-linha.total .os-resumo-label { font-size: 0.9rem; font-weight: 700; color: var(--texto); }
+    .os-resumo-linha.total .os-resumo-valor { font-size: 1.15rem; color: var(--positivo); }
+    .os-separador { width: 100%; max-width: 320px; border: none; border-top: 1px solid var(--borda); margin: 4px 0; }
+    .os-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+    .badge-pendente { background: #fef0dc; color: #a8600a; }
+    .badge-em_producao { background: #e8f0fe; color: #2a5bd7; }
+    .badge-pronto { background: #e8f5ee; color: #2d8a4e; }
+    .badge-entregue { background: #f0f0f0; color: #555; }
+    .os-assinaturas { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; padding: 1.2rem; }
+    .os-assinatura { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .os-assinatura-linha { width: 100%; border-bottom: 1px solid var(--texto); height: 40px; }
+    .os-assinatura-label { font-size: 0.75rem; color: var(--suave); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+    .os-rodape { text-align: center; padding: 1.2rem 2.5rem; border-top: 1px solid var(--borda); background: #faf9f7; font-size: 0.78rem; color: var(--suave); font-style: italic; }
+    .os-rodape strong { color: var(--dourado-escuro); }
+    .os-loading { text-align: center; padding: 4rem; color: var(--suave); font-size: 1rem; }
+    @media print {
+      body { background: white; padding: 0; }
+      .barra-acoes { display: none !important; }
+      .os-container { border: none; border-radius: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="barra-acoes">
+    <button class="btn-acao btn-voltar" onclick="window.close()">← Voltar</button>
+    <button class="btn-acao btn-pdf" onclick="window.print()">📄 Salvar PDF</button>
+    <button class="btn-acao btn-imprimir" onclick="window.print()">🖨️ Imprimir</button>
+  </div>
+
+  <div class="os-container" id="os-container">
+    <div class="os-loading" id="os-loading">Carregando ordem de serviço...</div>
+  </div>
+
+  <script>
+    const token = localStorage.getItem('token')
+    const API = 'http://localhost:3000'
+    const headers = { 'Authorization': `Bearer ${token}` }
+
+    const params = new URLSearchParams(window.location.search)
+    const id = params.get('id')
+
+    if (!id) {
+      document.getElementById('os-loading').textContent = 'ID da OS não informado.'
+    } else {
+      carregarOS(id)
+    }
+
+    async function carregarOS(id) {
+      try {
+        const [resVendas, resClientes] = await Promise.all([
+          fetch(`${API}/vendas`, { headers }),
+          fetch(`${API}/clientes`, { headers })
+        ])
+        const vendas = await resVendas.json()
+        const clientes = await resClientes.json()
+
+        const venda = vendas.find(v => v.id === parseInt(id))
+        if (!venda) {
+          document.getElementById('os-loading').textContent = 'OS não encontrada.'
+          return
+        }
+
+        const cliente = clientes.find(c => c.id === venda.cliente_id) || {}
+        renderOS(venda, cliente)
+      } catch (e) {
+        document.getElementById('os-loading').textContent = 'Erro ao carregar OS.'
+      }
+    }
+
+    function renderOS(venda, cliente) {
+      const container = document.getElementById('os-container')
+      const dataVenda = new Date(venda.data_venda).toLocaleDateString('pt-BR')
+
+      const itens = venda.itens || []
+      const desconto = parseFloat(venda.desconto || 0)
+      const subtotal = itens.reduce((acc, i) => acc + parseFloat(i.subtotal), 0)
+      const total = parseFloat(venda.valor_total)
+
+      const statusLabel = {
+        pendente: 'Pendente', em_producao: 'Em produção',
+        pronto: 'Pronto', entregue: 'Entregue'
+      }
+      const status = venda.status_encomenda || 'pendente'
+
+      const linhasItens = itens.length > 0
+        ? itens.map(i => `
+            <tr>
+              <td><strong>${i.nome_produto}</strong></td>
+              <td>${i.quantidade}</td>
+              <td class="td-right">R$ ${parseFloat(i.valor_unitario).toFixed(2).replace('.', ',')}</td>
+              <td class="td-right">R$ ${parseFloat(i.subtotal).toFixed(2).replace('.', ',')}</td>
+            </tr>`).join('')
+        : `<tr><td colspan="4" style="color:#b0aca4;font-style:italic;padding:1rem">Nenhum item registrado</td></tr>`
+
+      container.innerHTML = `
+        <div class="os-header">
+          <div>
+            <div class="os-empresa-nome">JUBA</div>
+            <div class="os-empresa-sub">Crochê & Arte • @juba.croche1</div>
+            <div class="os-empresa-slogan">Feito à mão, com amor</div>
+          </div>
+          <div class="os-numero-box">
+            <div class="os-numero-label">Ordem de Serviço</div>
+            <div class="os-numero">#${String(venda.id).padStart(4, '0')}</div>
+            <div class="os-data-emissao">Emitida em ${dataVenda}</div>
+          </div>
+        </div>
+
+        <div class="os-body">
+          <div class="os-secao">
+            <div class="os-secao-titulo">Dados do Cliente</div>
+            <div class="os-secao-corpo">
+              <div class="os-dados-grid">
+                <div class="os-campo">
+                  <span class="os-campo-label">Nome</span>
+                  <span class="os-campo-valor">${cliente.nome || '—'}</span>
+                </div>
+                <div class="os-campo">
+                  <span class="os-campo-label">Telefone / WhatsApp</span>
+                  <span class="os-campo-valor ${cliente.telefone ? '' : 'os-campo-vazio'}">${cliente.telefone || 'Não informado'}</span>
+                </div>
+                <div class="os-campo">
+                  <span class="os-campo-label">E-mail</span>
+                  <span class="os-campo-valor ${cliente.email ? '' : 'os-campo-vazio'}">${cliente.email || 'Não informado'}</span>
+                </div>
+                <div class="os-campo">
+                  <span class="os-campo-label">Cidade / Estado</span>
+                  <span class="os-campo-valor ${cliente.cidade ? '' : 'os-campo-vazio'}">${[cliente.cidade, cliente.estado].filter(Boolean).join(' — ') || 'Não informado'}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="os-secao">
+            <div class="os-secao-titulo">Itens da Encomenda</div>
+            <table class="os-tabela">
+              <thead>
+                <tr>
+                  <th>Descrição</th><th>Qtd</th>
+                  <th class="td-right">Valor Unit.</th>
+                  <th class="td-right">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${linhasItens}
+                ${venda.observacao ? `<tr><td colspan="4" style="font-size:0.82rem;color:#6b6760;border-bottom:none"><strong>Obs:</strong> ${venda.observacao}</td></tr>` : ''}
+              </tbody>
+            </table>
+            <div class="os-resumo">
+              <div class="os-resumo-linha">
+                <span class="os-resumo-label">Subtotal</span>
+                <span class="os-resumo-valor">R$ ${subtotal.toFixed(2).replace('.', ',')}</span>
+              </div>
+              ${desconto > 0 ? `<div class="os-resumo-linha"><span class="os-resumo-label">Desconto</span><span class="os-resumo-valor">− R$ ${desconto.toFixed(2).replace('.', ',')}</span></div>` : ''}
+              <hr class="os-separador">
+              <div class="os-resumo-linha total">
+                <span class="os-resumo-label">Total</span>
+                <span class="os-resumo-valor">R$ ${total.toFixed(2).replace('.', ',')}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="os-secao">
+            <div class="os-secao-titulo">Status da Encomenda</div>
+            <div class="os-secao-corpo">
+              <span class="os-badge badge-${status}">${statusLabel[status]}</span>
+            </div>
+          </div>
+
+          <div class="os-secao">
+            <div class="os-secao-titulo">Assinaturas</div>
+            <div class="os-assinaturas">
+              <div class="os-assinatura">
+                <div class="os-assinatura-linha"></div>
+                <span class="os-assinatura-label">Cliente</span>
+              </div>
+              <div class="os-assinatura">
+                <div class="os-assinatura-linha"></div>
+                <span class="os-assinatura-label">Crochê do Juba</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="os-rodape">
+          <strong>Crochê do Juba</strong> — Cada ponto, um carinho! ♥ &nbsp;|&nbsp; @juba.croche1
+        </div>
+      `
+    }
+
+    function salvarPDF() { window.print() }
+  </script>
+</body>
+</html>

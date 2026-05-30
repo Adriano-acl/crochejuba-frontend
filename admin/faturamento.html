@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faturamento — Juba Crochê</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css">
+  <style>
+    .filtro-box {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--borda);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .filtro-box label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--texto-suave);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .filtro-select {
+      padding: 0.5rem 0.9rem;
+      border: 1px solid var(--borda);
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      color: var(--texto);
+      background: white;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .filtro-select:focus { border-color: var(--dourado); }
+
+    .btn-filtrar {
+      padding: 0.5rem 1.2rem;
+      background: var(--texto);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-filtrar:hover { opacity: 0.8; }
+
+    .periodo-label {
+      margin-left: auto;
+      font-size: 0.82rem;
+      color: var(--texto-suave);
+      font-style: italic;
+    }
+
+    /* Cards de resumo com 3 colunas */
+    .cards-fat {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-fat {
+      background: var(--card-bg);
+      border: 1px solid var(--borda);
+      border-radius: 12px;
+      padding: 1.4rem 1.5rem;
+    }
+
+    .card-fat-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--texto-suave);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-fat-valor {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--texto);
+      line-height: 1.1;
+    }
+
+    .card-fat-valor.positivo { color: var(--positivo); }
+    .card-fat-detalhe {
+      font-size: 0.78rem;
+      color: var(--texto-suave);
+      margin-top: 0.35rem;
+    }
+
+    /* Badge de status igual ao vendas.html */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+    .badge-pendente    { background: #fef0dc; color: #a8600a; }
+    .badge-em_producao { background: #e8f0fe; color: #2a5bd7; }
+    .badge-pronto      { background: #e8f5ee; color: #2d8a4e; }
+    .badge-entregue    { background: #f0f0f0; color: #555; }
+
+    .tabela-vazia {
+      text-align: center;
+      padding: 2.5rem;
+      color: var(--texto-suave);
+      font-style: italic;
+    }
+
+    .link-os {
+      color: var(--dourado-escuro);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.82rem;
+    }
+    .link-os:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <span class="logo-nome">JUBA</span>
+        <span class="logo-sub">Crochê & Arte</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><span class="nav-icon">⊞</span> Dashboard</a>
+        <a href="produtos.html"  class="nav-item"><span class="nav-icon">◈</span> Produtos</a>
+        <a href="clientes.html"  class="nav-item"><span class="nav-icon">◎</span> Clientes</a>
+        <a href="vendas.html"    class="nav-item"><span class="nav-icon">◉</span> Vendas</a>
+        <a href="faturamento.html" class="nav-item ativo"><span class="nav-icon">▦</span> Faturamento</a>
+      </nav>
+      <a href="login.html" class="sidebar-sair"><span class="nav-icon">⇥</span> Sair</a>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="conteudo">
+
+      <!-- CABEÇALHO -->
+      <div class="page-header">
+        <div>
+          <h1 class="page-saudacao">Faturamento</h1>
+          <p class="page-data" id="data-hoje"></p>
+        </div>
+      </div>
+
+      <!-- FILTRO MÊS / ANO -->
+      <div class="filtro-box">
+        <label>Mês</label>
+        <select class="filtro-select" id="sel-mes">
+          <option value="1">Janeiro</option>
+          <option value="2">Fevereiro</option>
+          <option value="3">Março</option>
+          <option value="4">Abril</option>
+          <option value="5">Maio</option>
+          <option value="6">Junho</option>
+          <option value="7">Julho</option>
+          <option value="8">Agosto</option>
+          <option value="9">Setembro</option>
+          <option value="10">Outubro</option>
+          <option value="11">Novembro</option>
+          <option value="12">Dezembro</option>
+        </select>
+
+        <label>Ano</label>
+        <select class="filtro-select" id="sel-ano"></select>
+
+        <button class="btn-filtrar" id="btn-filtrar">Filtrar</button>
+
+        <span class="periodo-label" id="periodo-label"></span>
+      </div>
+
+      <!-- CARDS DE RESUMO -->
+      <div class="cards-fat">
+
+        <div class="card-fat">
+          <p class="card-fat-label">Faturamento do período</p>
+          <p class="card-fat-valor positivo" id="card-faturamento">R$ —</p>
+          <p class="card-fat-detalhe">total de vendas concluídas e em andamento</p>
+        </div>
+
+        <div class="card-fat">
+          <p class="card-fat-label">Total de vendas</p>
+          <p class="card-fat-valor" id="card-total-vendas">—</p>
+          <p class="card-fat-detalhe">ordens de serviço no período</p>
+        </div>
+
+        <div class="card-fat">
+          <p class="card-fat-label">Ticket médio</p>
+          <p class="card-fat-valor" id="card-ticket-medio">R$ —</p>
+          <p class="card-fat-detalhe">valor médio por venda</p>
+        </div>
+
+      </div>
+
+      <!-- TABELA DE VENDAS DO PERÍODO -->
+      <div class="tabela-box">
+        <div class="tabela-header">
+          <h2 id="tabela-titulo">Vendas do período</h2>
+        </div>
+        <table class="tabela">
+          <thead>
+            <tr>
+              <th>OS</th>
+              <th>Cliente</th>
+              <th>Itens</th>
+              <th>Desconto</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Data</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tbody-fat">
+            <tr><td colspan="8" class="tabela-loading">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="faturamento.js"></script>
+</body>
+</html>

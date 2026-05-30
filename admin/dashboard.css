@@ -538,3 +538,31 @@
   font-style: italic;
   margin-top: 0.5rem;
 }
+
+/* ===== BADGES STATUS VENDA ===== */
+.badge-status {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.badge-pendente    { background: #fef0dc; color: #a8600a; }
+.badge-producao    { background: #e8f0fe; color: #2a5bd7; }
+.badge-pronto      { background: #e8f5ee; color: #2d8a4e; }
+.badge-entregue    { background: #f0f0f0; color: #555; }
+
+/* ===== BOTÃO OS ===== */
+.btn-os {
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  background: #f0ece4;
+  color: #a8956e;
+}
+.btn-os:hover { opacity: 0.75; }

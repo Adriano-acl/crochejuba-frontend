@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendas — Juba Crochê</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css">
+  <style>
+    .itens-lista { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1rem; }
+
+    .item-linha {
+      display: grid;
+      grid-template-columns: 2fr 80px 130px 110px 36px;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .item-linha .form-input { margin: 0; }
+
+    .btn-remover-item {
+      background: #fdecea;
+      color: #c0392b;
+      border: none;
+      border-radius: 6px;
+      width: 32px;
+      height: 32px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s;
+    }
+    .btn-remover-item:hover { opacity: 0.75; }
+
+    .itens-cabecalho {
+      display: grid;
+      grid-template-columns: 2fr 80px 130px 110px 36px;
+      gap: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--borda);
+      margin-bottom: 6px;
+    }
+    .itens-cabecalho span {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--texto-suave);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .btn-adicionar-item {
+      background: none;
+      border: 1px dashed var(--dourado);
+      color: var(--dourado-escuro);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+    .btn-adicionar-item:hover { background: var(--ativo-bg); }
+
+    .resumo-venda {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--borda);
+      margin-bottom: 1rem;
+    }
+    .resumo-linha {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+      color: var(--texto-suave);
+    }
+    .resumo-linha strong {
+      font-size: 1rem;
+      color: var(--texto);
+      min-width: 100px;
+      text-align: right;
+    }
+    .resumo-total {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--texto);
+    }
+    .resumo-total strong {
+      font-size: 1.2rem;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .desconto-input { max-width: 160px; }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <span class="logo-nome">JUBA</span>
+        <span class="logo-sub">Crochê & Arte</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"><span class="nav-icon">⊞</span> Dashboard</a>
+        <a href="produtos.html" class="nav-item"><span class="nav-icon">◈</span> Produtos</a>
+        <a href="clientes.html" class="nav-item"><span class="nav-icon">◎</span> Clientes</a>
+        <a href="vendas.html" class="nav-item ativo"><span class="nav-icon">◉</span> Vendas</a>
+        <a href="faturamento.html" class="nav-item"><span class="nav-icon">▦</span> Faturamento</a>
+        <a href="os.html" class="nav-item"><span class="nav-icon">⊟</span> OS</a>
+      </nav>
+      <a href="login.html" class="sidebar-sair"><span class="nav-icon">⇥</span> Sair</a>
+    </aside>
+
+    <main class="conteudo">
+      <div class="page-header">
+        <div>
+          <h1 class="page-saudacao">Vendas</h1>
+          <p class="page-data" id="data-hoje"></p>
+        </div>
+        <button class="btn-nova-venda" id="btn-nova-venda">+ Nova Venda</button>
+      </div>
+
+      <!-- FORMULÁRIO -->
+      <div class="form-box" id="form-box" style="display:none">
+        <div class="form-box-header">
+          <h2 id="form-titulo">Nova Venda</h2>
+          <button class="btn-fechar" id="btn-fechar-form">✕</button>
+        </div>
+
+        <!-- Cliente + Status -->
+        <div class="form-grid-2">
+          <div class="form-grupo">
+            <label class="form-label">Cliente</label>
+            <select class="form-input" id="campo-cliente">
+              <option value="">Selecione o cliente...</option>
+            </select>
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Status da encomenda</label>
+            <select class="form-input" id="campo-status">
+              <option value="pendente">Pendente</option>
+              <option value="em_producao">Em produção</option>
+              <option value="pronto">Pronto</option>
+              <option value="entregue">Entregue</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Itens -->
+        <p class="form-secao">Itens da encomenda</p>
+
+        <div class="itens-cabecalho">
+          <span>Produto</span>
+          <span>Qtd</span>
+          <span>Valor unit. (R$)</span>
+          <span>Subtotal</span>
+          <span></span>
+        </div>
+
+        <div class="itens-lista" id="itens-lista"></div>
+
+        <button class="btn-adicionar-item" id="btn-adicionar-item">+ Adicionar item</button>
+
+        <!-- Resumo financeiro -->
+        <div class="resumo-venda">
+          <div class="resumo-linha">
+            Subtotal <strong id="resumo-subtotal">R$ 0,00</strong>
+          </div>
+          <div class="resumo-linha">
+            Desconto
+            <input type="number" class="form-input desconto-input" id="campo-desconto" min="0" step="0.01" placeholder="0,00" value="0">
+          </div>
+          <div class="resumo-linha resumo-total">
+            Total <strong id="resumo-total">R$ 0,00</strong>
+          </div>
+        </div>
+
+        <!-- Observação -->
+        <div class="form-grupo" style="margin-bottom: 1rem;">
+          <label class="form-label">Observações (cor, medidas, prazo combinado...)</label>
+          <input type="text" class="form-input" id="campo-obs" placeholder="Ex: Cor azul marinho, tamanho M, prazo 15 dias">
+        </div>
+
+        <div class="form-rodape">
+          <button class="btn-cancelar" id="btn-cancelar">Cancelar</button>
+          <button class="btn-salvar" id="btn-salvar">Salvar Venda</button>
+        </div>
+      </div>
+
+      <!-- TABELA -->
+      <div class="tabela-box">
+        <div class="tabela-header">
+          <h2>Todas as vendas</h2>
+          <div class="busca-box">
+            <input type="text" class="form-input" id="busca-os" placeholder="Buscar por OS ou cliente...">
+          </div>
+        </div>
+        <table class="tabela">
+          <thead>
+            <tr>
+              <th>OS</th>
+              <th>Cliente</th>
+              <th>Itens</th>
+              <th>Desconto</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Data</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-vendas">
+            <tr><td colspan="8" class="tabela-loading">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+  <script src="vendas.js"></script>
+</body>
+</html>
