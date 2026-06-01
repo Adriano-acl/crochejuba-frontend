@@ -356,3 +356,8 @@ function abrirOS(id) {
 carregarClientes()
 carregarProdutos()
 carregarVendas()
+
+// Se veio do dashboard com ?nova=true, abre o formulário automaticamente
+if (new URLSearchParams(window.location.search).get('nova') === 'true') {
+  document.getElementById('btn-nova-venda').click()
+}

@@ -131,6 +131,7 @@
   </style>
 </head>
 <body>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
   <div class="layout">
 
     <!-- SIDEBAR -->
@@ -154,6 +155,7 @@
 
       <!-- CABEÇALHO -->
       <div class="page-header">
+        <button class="btn-menu" id="btn-menu">☰</button>
         <div>
           <h1 class="page-saudacao">Faturamento</h1>
           <p class="page-data" id="data-hoje"></p>
@@ -237,5 +239,15 @@
   </div>
 
   <script src="faturamento.js"></script>
+  <script>
+    const btnMenu = document.getElementById("btn-menu");
+    const sidebar = document.querySelector(".sidebar");
+    const overlay = document.getElementById("sidebar-overlay");
+    function abrirMenu() { sidebar.classList.add("aberta"); overlay.classList.add("ativo"); }
+    function fecharMenu() { sidebar.classList.remove("aberta"); overlay.classList.remove("ativo"); }
+    btnMenu.addEventListener("click", abrirMenu);
+    overlay.addEventListener("click", fecharMenu);
+    sidebar.querySelectorAll(".nav-item, .sidebar-sair").forEach(a => a.addEventListener("click", fecharMenu));
+  </script>
 </body>
 </html>

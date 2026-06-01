@@ -11,6 +11,7 @@
 <body>
 
   <!-- ESTRUTURA PRINCIPAL: sidebar + conteúdo -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
   <div class="layout">
 
     <!-- SIDEBAR -->
@@ -37,9 +38,6 @@
         <a href="faturamento.html" class="nav-item">
           <span class="nav-icon">▦</span> Faturamento
         </a>
-        <a href="os.html" class="nav-item">
-          <span class="nav-icon">⊟</span> OS
-        </a>
       </nav>
 
       <a href="login.html" class="sidebar-sair">
@@ -53,11 +51,12 @@
 
       <!-- CABEÇALHO DA PÁGINA -->
       <div class="page-header">
+        <button class="btn-menu" id="btn-menu">☰</button>
         <div>
           <h1 class="page-saudacao">Bom dia, Juba 👋</h1>
           <p class="page-data" id="data-hoje"></p>
         </div>
-        <button class="btn-nova-venda">+ Nova venda</button>
+        <button class="btn-nova-venda" onclick="window.location.href='vendas.html?nova=true'">+ Nova venda</button>
       </div>
 
       <!-- CARDS DE RESUMO -->
@@ -121,5 +120,15 @@
 
   <script src="dashboard.js"></script>
 
+  <script>
+    const btnMenu = document.getElementById("btn-menu");
+    const sidebar = document.querySelector(".sidebar");
+    const overlay = document.getElementById("sidebar-overlay");
+    function abrirMenu() { sidebar.classList.add("aberta"); overlay.classList.add("ativo"); }
+    function fecharMenu() { sidebar.classList.remove("aberta"); overlay.classList.remove("ativo"); }
+    btnMenu.addEventListener("click", () => sidebar.classList.contains("aberta") ? fecharMenu() : abrirMenu());
+    overlay.addEventListener("click", fecharMenu);
+    sidebar.querySelectorAll(".nav-item, .sidebar-sair").forEach(a => a.addEventListener("click", fecharMenu));
+  </script>
 </body>
 </html>

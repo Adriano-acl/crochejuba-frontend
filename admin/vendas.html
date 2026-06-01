@@ -109,6 +109,7 @@
   </style>
 </head>
 <body>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
   <div class="layout">
     <aside class="sidebar">
       <div class="sidebar-logo">
@@ -121,13 +122,14 @@
         <a href="clientes.html" class="nav-item"><span class="nav-icon">◎</span> Clientes</a>
         <a href="vendas.html" class="nav-item ativo"><span class="nav-icon">◉</span> Vendas</a>
         <a href="faturamento.html" class="nav-item"><span class="nav-icon">▦</span> Faturamento</a>
-        <a href="os.html" class="nav-item"><span class="nav-icon">⊟</span> OS</a>
+
       </nav>
       <a href="login.html" class="sidebar-sair"><span class="nav-icon">⇥</span> Sair</a>
     </aside>
 
     <main class="conteudo">
       <div class="page-header">
+        <button class="btn-menu" id="btn-menu">☰</button>
         <div>
           <h1 class="page-saudacao">Vendas</h1>
           <p class="page-data" id="data-hoje"></p>
@@ -231,5 +233,15 @@
     </main>
   </div>
   <script src="vendas.js"></script>
+  <script>
+    const btnMenu = document.getElementById("btn-menu");
+    const sidebar = document.querySelector(".sidebar");
+    const overlay = document.getElementById("sidebar-overlay");
+    function abrirMenu() { sidebar.classList.add("aberta"); overlay.classList.add("ativo"); }
+    function fecharMenu() { sidebar.classList.remove("aberta"); overlay.classList.remove("ativo"); }
+    btnMenu.addEventListener("click", abrirMenu);
+    overlay.addEventListener("click", fecharMenu);
+    sidebar.querySelectorAll(".nav-item, .sidebar-sair").forEach(a => a.addEventListener("click", fecharMenu));
+  </script>
 </body>
 </html>
