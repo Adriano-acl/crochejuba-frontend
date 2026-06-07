@@ -5,7 +5,7 @@ if (!token) {
   window.location.href = 'login.html'
 }
 
-const API = 'http://localhost:3000'
+const API = 'https://crochejuba-sistema-production.up.railway.app'
 const headers = {
   'Authorization': `Bearer ${token}`,
   'Content-Type': 'application/json'

@@ -1,7 +1,7 @@
 const token = localStorage.getItem('token')
 if (!token) { alert('Faça login primeiro'); window.location.href = 'login.html' }
 
-const API = 'http://localhost:3000'
+const API = 'https://crochejuba-sistema-production.up.railway.app'
 const headers = { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
 
 const agora = new Date()

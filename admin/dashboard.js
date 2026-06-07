@@ -23,7 +23,7 @@ const nomeEl = document.querySelector('.page-saudacao')
 nomeEl.textContent = `${saudacao}, Juba 👋`
 
 // ===== 3. CONFIGURAÇÃO DAS REQUISIÇÕES =====
-const API = 'http://localhost:3000'
+const API = 'https://crochejuba-sistema-production.up.railway.app'
 const headers = { 'Authorization': `Bearer ${token}` }
 
 // ===== 4. BUSCAR VENDAS DO MÊS =====
