@@ -12,7 +12,7 @@ botaoLogin.addEventListener('click', async () => {
 
     try {
 
-        const resposta = await fetch('http://localhost:3000/login', {
+       const resposta = await fetch('https://crochejuba-sistema-production.up.railway.app/login', {
 
             method: 'POST',
 
